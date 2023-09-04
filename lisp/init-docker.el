@@ -40,8 +40,8 @@
               docker-container-shell-file-name "/bin/bash"))
 
 ;;`tramp-container' is builtin since 29
-(unless emacs/>=29p
-  (use-package docker-tramp))
+;;(unless emacs/>=29p
+;;  (use-package docker-tramp))
 
 (use-package dockerfile-mode)
 
