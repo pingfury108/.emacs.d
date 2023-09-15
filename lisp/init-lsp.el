@@ -331,7 +331,6 @@
             ((python-mode python-ts-mode)            . (lambda () (require 'dap-python)))
             ((ruby-mode ruby-ts-mode)                . (lambda () (require 'dap-ruby)))
             ((go-mode go-ts-mode)                    . (lambda () (require 'dap-go)))
-            ((java-mode java-ts-mode jdee-mode)      . (lambda () (require 'dap-java)))
             ((c-mode c-ts-mode c++-mode c++-ts-mode) . (lambda () (require 'dap-lldb)))
             ((objc-mode swift-mode)                  . (lambda () (require 'dap-lldb)))
             (php-mode                                . (lambda () (require 'dap-php)))
@@ -346,14 +345,12 @@
      :after lsp-mode
      :bind (:map lsp-mode-map
             ("C-<f8>" . lsp-treemacs-errors-list)
-            ("M-<f8>" . lsp-treemacs-symbols)
-            ("s-<f8>" . lsp-treemacs-java-deps-list))
+            ("M-<f8>" . lsp-treemacs-symbols))
      :init (lsp-treemacs-sync-mode 1)
      :config
      (with-eval-after-load 'ace-window
        (when (boundp 'aw-ignored-buffers)
-         (push 'lsp-treemacs-symbols-mode aw-ignored-buffers)
-         (push 'lsp-treemacs-java-deps-mode aw-ignored-buffers)))
+         (push 'lsp-treemacs-symbols-mode aw-ignored-buffers)))
 
      (with-no-warnings
        (when (icon-displayable-p)
@@ -506,9 +503,6 @@
               :icon (format "%s " (all-the-icons-faicon "chain-broken" :height 0.9 :v-adjust -0.05 :face 'font-lock-doc-face))
               :extensions (icon-unlink))
              (treemacs-create-icon
-              :icon (format "%s " (all-the-icons-alltheicon "java" :height 1.0 :v-adjust 0.0 :face 'all-the-icons-orange))
-              :extensions (jar))
-             (treemacs-create-icon
               :icon (format "%s " (all-the-icons-faicon "book" :height 0.95 :v-adjust -0.05 :face 'all-the-icons-green))
               :extensions (library))
              (treemacs-create-icon
@@ -519,10 +513,7 @@
               :extensions (packagefolder))
              (treemacs-create-icon
               :icon (format "%s " (all-the-icons-faicon "archive" :height 0.9 :v-adjust -0.05 :face 'font-lock-doc-face))
-              :extensions (package))
-             (treemacs-create-icon
-              :icon (format "%s " (all-the-icons-octicon "repo" :height 1.0 :v-adjust -0.1 :face 'all-the-icons-blue))
-              :extensions (java-project))))
+              :extensions (package))))
 
          (setq lsp-treemacs-theme "centaur-colors"))))
 
@@ -564,11 +555,7 @@
 
    ;; Julia
    (use-package lsp-julia
-     :hook (julia-mode . (lambda () (require 'lsp-julia))))
-
-   ;; Java
-   (use-package lsp-java
-     :hook ((java-mode java-ts-mode jdee-mode) . (lambda () (require 'lsp-java))))))
+     :hook (julia-mode . (lambda () (require 'lsp-julia))))))
 
 (unless centaur-lsp
   ;; Enable LSP in org babel
@@ -607,7 +594,7 @@
                           (upcase ,lang))))))))
 
   (defconst org-babel-lang-list
-    '("go" "python" "ipython" "ruby" "js" "css" "sass" "c" "rust" "java" "cpp" "c++"))
+    '("go" "python" "ipython" "ruby" "js" "css" "sass" "c" "rust" "cpp" "c++"))
   (add-to-list 'org-babel-lang-list "shell")
   (dolist (lang org-babel-lang-list)
     (eval `(lsp-org-babel-enable ,lang))))

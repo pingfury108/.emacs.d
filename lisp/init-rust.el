@@ -31,7 +31,10 @@
 ;;; Code:
 
 ;; Rust
-(use-package rustic)
+(use-package rustic
+  :custom
+  (rustic-analyzer-command '("rustup" "run" "stable" "rust-analyzer")))
+
 (use-package rust-playground)
 
 (provide 'init-rust)
