@@ -136,11 +136,15 @@ Otherwise the startup will be very slow. "
 (require 'init-player)
 (require 'init-utils)
 
+;;
+(require 'init-rime)
+
 ;; Programming
 (require 'init-vcs)
 (require 'init-flycheck)
 (require 'init-projectile)
 (require 'init-lsp)
+;;(require 'init-lspbridge)
 (require 'init-ctags)
 
 (require 'init-prog)
