@@ -40,3 +40,6 @@
   (setq lsp-bridge-enable-hover-diagnostic t))
 
 (provide 'init-lspbridge)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; init-lspbridge.el ends here
