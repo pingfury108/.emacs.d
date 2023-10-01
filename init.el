@@ -137,7 +137,7 @@ Otherwise the startup will be very slow. "
 (require 'init-utils)
 
 ;;
-(require 'init-rime)
+;;(require 'init-rime)
 
 ;; Programming
 (require 'init-vcs)
