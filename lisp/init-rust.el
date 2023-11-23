@@ -32,6 +32,13 @@
 
 ;; Rust
 (use-package rustic
+  :config
+  ;; (setq rust-indent-method-chain t)
+
+  ;; format using rustfmt on save
+  (setq rustic-rustfmt-args "--edition 2021")
+  (setq rustic-format-on-save t)
+
   :custom
   (rustic-analyzer-command '("rustup" "run" "stable" "rust-analyzer")))
 
