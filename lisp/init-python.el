@@ -34,9 +34,13 @@
 ;; Install: pip install pyflakes autopep8
 (use-package python
   :ensure nil
-  :hook (inferior-python-mode . (lambda ()
-                                  (process-query-on-exit-flag
-                                   (get-process "Python3"))))
+  :hook
+  (inferior-python-mode . (lambda ()
+                            (process-query-on-exit-flag
+                             (get-process "Python3"))))
+  (python-ts-mode . (lambda ()
+                      (setq tab-width 4)
+                      (setq standard-indent 4)))
   :init
   ;; Disable readline based native completion
   (setq python-shell-completion-native-enable nil)
