@@ -159,5 +159,8 @@ Otherwise the startup will be very slow. "
 (require 'init-web)
 (require 'init-yaml)
 
+;;
+(require 'init-pfy)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; init.el ends here
