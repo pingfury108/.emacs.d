@@ -430,7 +430,7 @@
   ;; Avy integration
   (use-package ivy-avy
     :bind (:map ivy-minibuffer-map
-           ("C-'" . ivy-avy)))
+                ("C-'" . ivy-avy)))
 
   ;; Additional key bindings for Ivy
   (use-package ivy-hydra
@@ -474,12 +474,12 @@
           "Set hydra-posframe style."
           (setq hydra-posframe-show-params
                 `(:left-fringe 10
-                  :right-fringe 10
-                  :internal-border-width 3
-                  :internal-border-color ,(face-background 'posframe-border nil t)
-                  :background-color ,(face-background 'tooltip nil t)
-                  :lines-truncate t
-                  :poshandler ivy-hydra-poshandler-frame-center-below)))
+                               :right-fringe 10
+                               :internal-border-width 3
+                               :internal-border-color ,(face-background 'posframe-border nil t)
+                               :background-color ,(face-background 'tooltip nil t)
+                               :lines-truncate t
+                               :poshandler ivy-hydra-poshandler-frame-center-below)))
         (hydra-set-posframe-show-params)
         (add-hook 'after-load-theme-hook #'hydra-set-posframe-show-params t))))
 
@@ -494,17 +494,17 @@
    (sys/macp
     (use-package counsel-osx-app
       :bind (:map counsel-mode-map
-             ("s-<f6>" . counsel-osx-app)))))
+                  ("s-<f6>" . counsel-osx-app)))))
 
   ;; Display world clock using Ivy
   (use-package counsel-world-clock
     :bind (:map counsel-mode-map
-           ("C-c c k" . counsel-world-clock)))
+                ("C-c c k" . counsel-world-clock)))
 
   ;; Tramp ivy interface
   (use-package counsel-tramp
     :bind (:map counsel-mode-map
-           ("C-c c T" . counsel-tramp)))
+                ("C-c c T" . counsel-tramp)))
 
   ;; Support pinyin in Ivy
   ;; Input prefix ':' to match pinyin
@@ -545,20 +545,6 @@
             (funcall fn str)))
       (advice-add #'ivy--regex-plus :around #'my-ivy--regex-pinyin)
       (advice-add #'ivy--regex-ignore-order :around #'my-ivy--regex-pinyin))))
-
-;; Use Ivy to open recent directories
-(use-package ivy-dired-history
-  :demand t
-  :after dired
-  :defines (savehist-additional-variables desktop-globals-to-save)
-  :bind (:map dired-mode-map
-         ("," . dired))
-  :init
-  (with-eval-after-load 'savehist
-    (add-to-list 'savehist-additional-variables 'ivy-dired-history-variable))
-  (with-eval-after-load 'desktop
-    (add-to-list 'desktop-globals-to-save 'ivy-dired-history-variable)))
-
 
 ;; `projectile' integration
 (use-package counsel-projectile
