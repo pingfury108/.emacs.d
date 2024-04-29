@@ -1,6 +1,6 @@
 ;; init-web.el --- Initialize web configurations.	-*- lexical-binding: t -*-
 
-;; Copyright (C) 2016-2022 Vincent Zhang
+;; Copyright (C) 2016-2024 Vincent Zhang
 
 ;; Author: Vincent Zhang <seagle0128@gmail.com>
 ;; URL: https://github.com/seagle0128/.emacs.d
@@ -30,7 +30,8 @@
 
 ;;; Code:
 
-(require 'init-custom)
+(eval-when-compile
+  (require 'init-custom))
 
 ;; eww
 (use-package eww
@@ -48,7 +49,7 @@
          :map xwidget-webkit-mode-map
          ("h"         . xwidget-hydra/body))
   :pretty-hydra
-  ((:title (pretty-hydra-title "Webkit" 'faicon "chrome" :face 'all-the-icons-blue)
+  ((:title (pretty-hydra-title "Webkit" 'faicon "nf-fa-chrome" :face 'nerd-icons-blue)
     :color amaranth :quit-key ("q" "C-g"))
    ("Navigate"
     (("b" xwidget-webkit-back "back")
@@ -67,26 +68,15 @@
      ("v" xwwp-follow-link "follow link" :exit t)
      ("w" xwidget-webkit-current-url-message-kill "copy url" :exit t)
      ("?" describe-mode "help" :exit t)
-     ("Q" quit-window "quit" :exit t))))
-  :init
-  ;; Link navigation
-  (use-package xwwp-follow-link-ivy
-    :after ivy
-    :bind (("C-c C-z x" . xwwp)
-           :map xwidget-webkit-mode-map
-           ("v"         . xwwp-follow-link))
-    :init (setq xwwp-follow-link-completion-system 'ivy)))
+     ("Q" quit-window "quit" :exit t)))))
 
 ;; CSS
 (use-package css-mode
-  :ensure nil
   :init (setq css-indent-offset 2))
 
 ;; SCSS
 (use-package scss-mode
-  :init
-  ;; Disable complilation on save
-  (setq scss-compile-at-save nil))
+  :init (setq scss-compile-at-save nil))
 
 ;; LESS
 (unless (fboundp 'less-css-mode)
@@ -97,17 +87,8 @@
   (use-package json-mode))
 
 ;; JavaScript
-(use-package js-mode
-  :ensure nil
-  :defines (js-indent-level flycheck-javascript-eslint-executable)
-  :config
-  (setq js-indent-level 2)
-
-  (with-eval-after-load 'flycheck
-    ;; https://github.com/mantoni/eslint_d.js
-    ;; Install: npm -i -g eslint_d
-    (when (executable-find "eslint_d")
-      (setq flycheck-javascript-eslint-executable "eslint_d"))))
+(use-package js
+  :init (setq js-indent-level 4))
 
 (use-package js2-mode
   :mode (("\\.js\\'" . js2-mode)
@@ -119,13 +100,7 @@
   :config
   ;; Use default keybindings for lsp
   (when centaur-lsp
-    (unbind-key "M-." js2-mode-map))
-
-  (with-eval-after-load 'flycheck
-    (when (or (executable-find "eslint_d")
-              (executable-find "eslint")
-              (executable-find "jshint"))
-      (setq js2-mode-show-strict-warnings nil))))
+    (unbind-key "M-." js2-mode-map)))
 
 ;; Format HTML, CSS and JavaScript/JSON
 ;; Install: npm -g install prettier
@@ -138,6 +113,7 @@
 ;; Live browser JavaScript, CSS, and HTML interaction
 (use-package skewer-mode
   :diminish
+  :functions diminish
   :hook (((js-mode js2-mode)   . skewer-mode)
          (css-mode             . skewer-css-mode)
          ((html-mode web-mode) . skewer-html-mode))
@@ -180,12 +156,7 @@
   :config
   (use-package restclient-test
     :diminish
-    :hook (restclient-mode . restclient-test-mode))
-
-  (with-eval-after-load 'company
-    (use-package company-restclient
-      :defines company-backends
-      :init (add-to-list 'company-backends 'company-restclient))))
+    :hook (restclient-mode . restclient-test-mode)))
 
 (provide 'init-web)
 

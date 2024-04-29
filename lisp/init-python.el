@@ -38,9 +38,9 @@
   (inferior-python-mode . (lambda ()
                             (process-query-on-exit-flag
                              (get-process "Python3"))))
-  (python-ts-mode . (lambda ()
-                      (setq tab-width 4)
-                      (setq standard-indent 4)))
+  ;;(python-ts-mode . (lambda ()
+  ;;                    (setq tab-width 4)
+  ;;                    (setq standard-indent 4)))
   :init
   ;; Disable readline based native completion
   (setq python-shell-completion-native-enable nil)
@@ -54,6 +54,18 @@
   ;; Env vars
   (with-eval-after-load 'exec-path-from-shell
     (exec-path-from-shell-copy-env "PYTHONPATH"))
+
+
+  ;;(use-package lsp-pylyzer
+  ;;  :straight '(lsp-pylyzer :type git :host github :repo "emacs-lsp/lsp-pylyzer")
+  ;;  :ensure t
+  ;;  :hook
+  ;;  (python-mode . (lambda ()
+  ;;                   (require 'lsp-pylyzer)
+  ;;                   (lsp)))
+  ;;  (python-ts-mode . (lambda ()
+  ;;                      (require 'lsp-pylyzer)
+  ;;                      (lsp))))
 
   ;; Live Coding in Python
   (use-package live-py-mode))
