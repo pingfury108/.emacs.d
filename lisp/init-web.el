@@ -88,7 +88,7 @@
 
 ;; JavaScript
 (use-package js
-  :init (setq js-indent-level 4))
+  :init (setq js-indent-level 2))
 
 (use-package js2-mode
   :mode (("\\.js\\'" . js2-mode)
@@ -125,7 +125,15 @@
     (diminish 'skewer-html-mode)))
 
 (use-package typescript-mode
-  :mode ("\\.ts[x]\\'" . typescript-mode))
+  :mode ("\\.ts[x]\\'" . typescript-mode)
+  :init
+  (setq typescript-indent-level 2))
+
+(use-package typescript-ts-mode
+  :mode ("\\.ts[x]\\'" . typescript-ts-mode)
+  :init
+  (setq typescript-indent-level 2)
+  (setq typescript-ts-mode-indent-offset 2))
 
 ;; Run Mocha or Jasmine tests
 (use-package mocha
