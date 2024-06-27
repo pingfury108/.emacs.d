@@ -55,9 +55,9 @@
         company-dabbrev-downcase nil
         company-global-modes '(not erc-mode message-mode help-mode
                                    gud-mode eshell-mode shell-mode)
-        company-backends '((company-capf :with  company-yasnippet)
-                           (company-dabbrev-code company-keywords company-files)
-                           company-dabbrev))
+        company-backends '((company-capf :with company-yasnippet )
+                           (company-dabbrev-code company-keywords)
+                           company-files company-dabbrev))
   :config
   (with-no-warnings
     ;; Company anywhere
@@ -136,6 +136,10 @@
         "Enable yasnippet but disable it inline."
         (if (eq cmd  'prefix)
             (when-let ((prefix (funcall fn 'prefix)))
+              ;; prefix is str or cons, is cons run (car prefix)
+               (if (consp prefix)
+                  (setq prefix (car prefix))
+                nil)
               (unless (memq (char-before (- (point) (length prefix)))
                             '(?. ?< ?> ?\( ?\) ?\[ ?{ ?} ?\" ?' ?`))
                 prefix))
