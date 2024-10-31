@@ -122,7 +122,7 @@ Otherwise the startup will be very slow. "
 (require 'init-kill-ring)
 (require 'init-persp)
 (require 'init-window)
-(require 'init-treemacs)
+;;(require 'init-treemacs)
 
 (require 'init-eshell)
 (require 'init-shell)

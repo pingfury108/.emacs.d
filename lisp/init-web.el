@@ -125,15 +125,7 @@
     (diminish 'skewer-html-mode)))
 
 (use-package typescript-mode
-  :mode ("\\.ts[x]\\'" . typescript-mode)
-  :init
-  (setq typescript-indent-level 2))
-
-(use-package typescript-ts-mode
-  :mode ("\\.ts[x]\\'" . typescript-ts-mode)
-  :init
-  (setq typescript-indent-level 2)
-  (setq typescript-ts-mode-indent-offset 2))
+  :mode ("\\.ts[x]\\'" . typescript-mode))
 
 ;; Run Mocha or Jasmine tests
 (use-package mocha
