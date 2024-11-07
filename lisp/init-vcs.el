@@ -36,6 +36,10 @@
 ;; Git
 ;; See `magit-define-global-key-bindings'
 (use-package magit
+  :straight '(magit
+              :type git
+              :host github
+              :repo "magit/magit")
   :init (setq magit-diff-refine-hunk t)
   :config
   (when sys/win32p
@@ -48,15 +52,20 @@
   (unbind-key "M-4" magit-mode-map)
 
   ;; Access Git forges from Magit
-  (use-package forge
-    :demand t
-    :custom-face
-    (forge-topic-label ((t (:inherit variable-pitch :height 0.9 :width condensed :weight regular :underline nil))))
-    :init (setq forge-topic-list-columns
-                '(("#" 5 forge-topic-list-sort-by-number (:right-align t) number nil)
-                  ("Title" 60 t nil title  nil)
-                  ("State" 6 t nil state nil)
-                  ("Updated" 10 t nil updated nil)))))
+  ;;  (use-package forge
+  ;;    :straight '(forge
+  ;;                :type git
+  ;;                :host github
+  ;;                :repo "magit/forge")
+  ;;    :demand t
+  ;;    :custom-face
+  ;;    (forge-topic-label ((t (:inherit variable-pitch :height 0.9 :width condensed :weight regular :underline nil))))
+  ;;    :init (setq forge-topic-list-columns
+  ;;                '(("#" 5 forge-topic-list-sort-by-number (:right-align t) number nil)
+  ;;                  ("Title" 60 t nil title  nil)
+  ;;                  ("State" 6 t nil state nil)
+  ;;                  ("Updated" 10 t nil updated nil))))
+  )
 
 ;; Display transient in child frame
 (when (childframe-completion-workable-p)
