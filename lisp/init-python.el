@@ -56,19 +56,42 @@
     (exec-path-from-shell-copy-env "PYTHONPATH"))
 
 
-  ;;(use-package lsp-pylyzer
-  ;;  :straight '(lsp-pylyzer :type git :host github :repo "emacs-lsp/lsp-pylyzer")
-  ;;  :ensure t
-  ;;  :hook
-  ;;  (python-mode . (lambda ()
-  ;;                   (require 'lsp-pylyzer)
-  ;;                   (lsp)))
-  ;;  (python-ts-mode . (lambda ()
-  ;;                      (require 'lsp-pylyzer)
-  ;;                      (lsp))))
-
   ;; Live Coding in Python
   (use-package live-py-mode))
+
+;; Python
+(use-package lsp-pyright
+  :ensure t
+  :after lsp-mode
+  :preface
+  (defun ruff-format-buffer ()
+    (interactive)
+    (when (and (executable-find "ruff") buffer-file-name)
+      (call-process "ruff" nil nil nil "format" "--quiet" buffer-file-name)))
+
+  :hook (((python-mode python-ts-mode) . (lambda ()
+                                           (require 'lsp-pyright)
+                                           (add-hook 'after-save-hook #'ruff-format-buffer t t)
+                                           )))
+  :init (when (executable-find "python3")
+          (setq lsp-pyright-python-executable-cmd "python3"))
+  :config
+  (setq lsp-pyright-typechecking-mode "basic"
+        lsp-pyright-auto-import-completions t
+        lsp-pyright-auto-search-paths t
+        lsp-pyright-use-library-code-for-types t
+        lsp-pyright-diagnostic-mode "workspace")
+  )
+
+
+
+
+
+;; (add-hook 'python-mode-hook 'eglot-ensure)
+;; (with-eval-after-load 'eglot
+;;   (add-to-list 'eglot-server-programs
+;;                '(python-mode . ("ruff" "server")))
+;;   (add-hook 'after-save-hook 'eglot-format))
 
 (provide 'init-python)
 
