@@ -14,7 +14,8 @@
   (setq
    gptel-model "gemini-pro"
    gptel-backend (gptel-make-gemini "Gemini"
-                   :key gptel-gemini-api-key)))
+				    :key gptel-gemini-api-key
+				    :stream t)))
 
 
 (defun get-selected-text ()
