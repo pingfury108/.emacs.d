@@ -9,14 +9,17 @@
   :commands (insert-translated-name-insert))
 
 (use-package gptel
-  :straight 'gptel
+  :straight '(gptel
+              :type git
+              :host github
+              :repo "karthink/gptel")
   :init
-  (setq
-   gptel-model "gemini-pro"
-   gptel-backend (gptel-make-gemini "Gemini"
-				    :key gptel-gemini-api-key
-				    :stream t)))
-
+  ;; OPTIONAL configuration
+  (setq gptel-model   'deepseek-reasoner
+        gptel-backend (gptel-make-deepseek "DeepSeek"
+                                           :stream t
+                                           :key gptel-deepseek-api-key))
+  )
 
 (defun get-selected-text ()
   (interactive)
