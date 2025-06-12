@@ -36,10 +36,10 @@
 ;; Git
 ;; See `magit-define-global-key-bindings'
 (use-package magit
-  ;;:straight '(magit
-  ;;            :type git
-  ;;            :host github
-  ;;            :repo "magit/magit")
+  :straight '(magit
+              :type git
+              :host github
+              :repo "magit/magit")
   :init (setq magit-diff-refine-hunk t)
   :config
   (when sys/win32p
