@@ -35,11 +35,18 @@
 
 ;; Git
 ;; See `magit-define-global-key-bindings'
+(use-package transient
+  :ensure t
+  :demand t)
+
 (use-package magit
+  :after transient
   :straight '(magit
               :type git
               :host github
-              :repo "magit/magit")
+              :repo "magit/magit"
+              ;;:tag v4.3.6)
+              )
   :init (setq magit-diff-refine-hunk t)
   :config
   (when sys/win32p

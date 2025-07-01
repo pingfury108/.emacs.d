@@ -244,6 +244,10 @@ FACE defaults to inheriting from default and highlight."
          (dired-mode . diff-hl-dired-mode))
   :init (setq diff-hl-draw-borders nil)
   :config
+  ;; Automatically update diff-hl on focus and file revert
+  (add-hook 'focus-in-hook #'diff-hl-force-update)
+  (add-hook 'after-revert-hook #'diff-hl-force-update)
+
   ;; Highlight on-the-fly
   (diff-hl-flydiff-mode 1)
 
